@@ -1,21 +1,24 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <string>
 #include <iostream>
+#include "util.h"
 
-class Game
+class Window
 {
 public:
-	Game(const std::string &name, int width, int height) :
+	Window(const std::string &name, int width, int height) :
 		window_name(name), window_width(width), window_height(height)
 	{}
-	~Game();
-
+	~Window();
 	int init();
-	void log_error(std::ostream &os, const std::string &msg);
 
+	void clear();
+	void display();
+
+private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
@@ -23,5 +26,3 @@ public:
 	const int window_width;
 	const int window_height;
 };
-
-#endif
