@@ -15,7 +15,7 @@ int main()
 		return 1;
 	}
 
-	Window window("Epic Game", 900, 850);
+	Window window("Epic Game", 1200, 900);
 	if (window.init() != 0)
 		return 1;
 
