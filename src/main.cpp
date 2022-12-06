@@ -1,5 +1,6 @@
 #include "include/window.h"
 #include "include/util.h"
+#include "include/entity.h"
 
 int main()
 {
@@ -14,9 +15,12 @@ int main()
 		return 1;
 	}
 
-	Window window("Epic Game", 800, 700);
+	Window window("Epic Game", 900, 850);
 	if (window.init() != 0)
 		return 1;
+
+	SDL_Texture* player_texture = window.load_texture("img/player.png");
+	Entity player(200, 200, player_texture);
 
 	SDL_Event e;
 	bool quit = false;
@@ -28,6 +32,7 @@ int main()
 				quit = true;
 		}
 		window.clear();
+		window.render(player);
 		window.display();
 	}
 

@@ -16,7 +16,7 @@ int Window::init()
 		return 1;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (window == nullptr)
 	{
 		log_sdl_error(std::cout, "SDL_CreateRenderer");
@@ -26,9 +26,37 @@ int Window::init()
 	return 0;
 }
 
+SDL_Texture* Window::load_texture(std::string file_path)
+{
+	SDL_Texture* t = nullptr;
+	t = IMG_LoadTexture(renderer, file_path.c_str());
+
+	if (t == nullptr)
+		log_sdl_error(std::cout, "IMG_LoadTexture");
+
+	return t;
+}
+
 void Window::clear()
 {
 	SDL_RenderClear(renderer);
+}
+
+void Window::render(Entity& entity)
+{
+	SDL_Rect size;
+	size.x = entity.get_current_frame().x;
+	size.y = entity.get_current_frame().y;
+	size.w = entity.get_current_frame().w;
+	size.h = entity.get_current_frame().h;
+	
+	SDL_Rect pos;
+	pos.x = entity.get_X() * 2;
+	pos.y = entity.get_Y() * 2;
+	pos.w = entity.get_current_frame().w * 2;
+	pos.h = entity.get_current_frame().h * 2;
+
+	SDL_RenderCopy(renderer, entity.get_texture(), &size, &pos);
 }
 
 void Window::display()

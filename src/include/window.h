@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include "util.h"
+#include "entity.h"
 
 class Window
 {
@@ -15,7 +16,9 @@ public:
 	~Window();
 	int init();
 
+	SDL_Texture* load_texture(std::string file_path);
 	void clear();
+	void render(Entity& entity);
 	void display();
 
 private:
