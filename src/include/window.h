@@ -2,10 +2,11 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 #include <iostream>
 #include "util.h"
-#include "entity.h"
+#include "object.h"
 
 class Window
 {
@@ -16,10 +17,12 @@ public:
 	~Window();
 	int init();
 
-	SDL_Texture* load_texture(std::string file_path);
+	SDL_Texture* load_texture(const std::string& file_path);
 	void clear();
-	void render(Entity& entity);
+	void render(Object& entity, double scale);
 	void display();
+
+	void change_window_color(int r, int g, int b);
 
 private:
 	SDL_Window* window;
