@@ -57,12 +57,6 @@ void Window::render(Object& obj, double scale)
 	SDL_RenderCopy(renderer, obj.texture, &size, &pos);
 }
 
-void Window::change_window_color(int r, int g, int b)
-{
-	SDL_SetRenderDrawColor(renderer, r, g, b, 255);
-	SDL_RenderClear(renderer);
-}
-
 void Window::display()
 {
 	SDL_RenderPresent(renderer);

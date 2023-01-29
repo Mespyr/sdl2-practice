@@ -33,8 +33,8 @@ int main()
 	if (window.init() != 0)
 		return 1;
 
-	SDL_Texture* player_texture = window.load_texture("res/img/player.png");
-	SDL_Texture* crosshair_texture = window.load_texture("res/img/crosshair.png");
+	SDL_Texture* player_texture = window.load_texture("img/player.png");
+	SDL_Texture* crosshair_texture = window.load_texture("img/crosshair.png");
 	Game game(window, player_texture, crosshair_texture);
 	game.player.setX(200);
 	game.player.setY(200);

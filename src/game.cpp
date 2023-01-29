@@ -11,9 +11,7 @@ Game::Game(Window& window, SDL_Texture* player_texture, SDL_Texture* crosshair_t
 void Game::display_frame()
 {
 	SDL_GetMouseState(&crosshair_object.x, &crosshair_object.y);
-
 	window.clear();
-	window.change_window_color(10, 10, 10);
 	window.render(player.object, 5);
 	window.render(crosshair_object, 3);
 	window.display();
