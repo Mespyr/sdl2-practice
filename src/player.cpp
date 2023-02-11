@@ -4,7 +4,7 @@ Player::Player(SDL_Texture* player_texture)
 	: object(0, 0, player_texture)
 {
 	// create rectangles for left walking animation clips
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		left_facing_clips[i].x = i * 16;
 		left_facing_clips[i].y = 0;
@@ -13,7 +13,7 @@ Player::Player(SDL_Texture* player_texture)
 	}
 
 	// create rectangles for right walking animation clips
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		right_facing_clips[i].x = i * 16;
 		right_facing_clips[i].y = 16;
@@ -29,7 +29,7 @@ Player::Player(SDL_Texture* player_texture)
 void Player::set_next_animation_frame()
 {
 	animation_frame_index += 1;
-	if (animation_frame_index == 4) animation_frame_index = 0;
+	if (animation_frame_index == 8) animation_frame_index = 0;
 
 	SDL_GetMouseState(&mouse_x, &mouse_y);
 	player_mouse_angle = atan2(getY() - mouse_y, getX() - mouse_x) * 180 / 3.1415;

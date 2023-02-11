@@ -28,7 +28,7 @@ void Game::update(Uint32 delta_time)
 		if (keyboard_state[SDL_SCANCODE_D]) player.incX(delta_time);
 
 		// handle animation if player is moving
-		if (player_animation_timer >= 180)
+		if (player_animation_timer >= 100)
 		{
 			player.set_next_animation_frame();
 			player_animation_timer = 0;

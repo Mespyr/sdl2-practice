@@ -24,8 +24,8 @@ public:
 
 	Object object;
 private:
-	SDL_Rect left_facing_clips[4];
-	SDL_Rect right_facing_clips[4];
+	SDL_Rect left_facing_clips[8];
+	SDL_Rect right_facing_clips[8];
 	int mouse_x, mouse_y;
 	int animation_frame_index = 0;
 	double player_mouse_angle;
