@@ -16,7 +16,7 @@ int Window::init()
 		return 1;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (window == nullptr)
 	{
 		log_sdl_error(std::cout, "SDL_CreateRenderer");

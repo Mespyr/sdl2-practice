@@ -2,6 +2,8 @@
 
 #include "object.h"
 
+#include <iostream>
+
 class Player
 {
 public:
@@ -25,6 +27,6 @@ private:
 	SDL_Rect left_facing_clips[4];
 	SDL_Rect right_facing_clips[4];
 	int mouse_x, mouse_y;
-	int current_animation_frame_index = 0;
+	int animation_frame_index = 0;
 	double player_mouse_angle;
 };

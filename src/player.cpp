@@ -1,5 +1,4 @@
 #include "include/player.h"
-#include <iostream>
 
 Player::Player(SDL_Texture* player_texture)
 	: object(0, 0, player_texture)
@@ -29,27 +28,26 @@ Player::Player(SDL_Texture* player_texture)
 
 void Player::set_next_animation_frame()
 {
-
-	current_animation_frame_index += 1;
-	if (current_animation_frame_index == 4) current_animation_frame_index = 0;
+	animation_frame_index += 1;
+	if (animation_frame_index == 4) animation_frame_index = 0;
 
 	SDL_GetMouseState(&mouse_x, &mouse_y);
 	player_mouse_angle = atan2(getY() - mouse_y, getX() - mouse_x) * 180 / 3.1415;
 	if ((player_mouse_angle >= 0 && player_mouse_angle <= 90) || (player_mouse_angle <= 0 && player_mouse_angle >= -90))
-		object.current_frame = left_facing_clips[current_animation_frame_index];
+		object.current_frame = left_facing_clips[animation_frame_index];
 	else if ((player_mouse_angle >= 90 && player_mouse_angle <= 180) || (player_mouse_angle <= 90 && player_mouse_angle >= -180))
-		object.current_frame = right_facing_clips[current_animation_frame_index];
+		object.current_frame = right_facing_clips[animation_frame_index];
 }
 
 void Player::reset_animation_frame()
 {
-	current_animation_frame_index = 0;
+	animation_frame_index = 0;
 	SDL_GetMouseState(&mouse_x, &mouse_y);
 	player_mouse_angle = atan2(getY() - mouse_y, getX() - mouse_x) * 180 / 3.1415;
 	if ((player_mouse_angle >= 0 && player_mouse_angle <= 90) || (player_mouse_angle <= 0 && player_mouse_angle >= -90))
-		object.current_frame = left_facing_clips[current_animation_frame_index];
+		object.current_frame = left_facing_clips[animation_frame_index];
 	else if ((player_mouse_angle >= 90 && player_mouse_angle <= 180) || (player_mouse_angle <= 90 && player_mouse_angle >= -180))
-		object.current_frame = right_facing_clips[current_animation_frame_index];
+		object.current_frame = right_facing_clips[animation_frame_index];
 }
 
 // getters and setters and other similar stuffs

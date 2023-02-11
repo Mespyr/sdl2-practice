@@ -1,78 +1,42 @@
-#include "include/window.h"
 #include "include/util.h"
-#include "include/object.h"
+#include "include/window.h"
 #include "include/game.h"
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-
-#include <math.h>
 
 int main()
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-	{
-		log_sdl_error(std::cout, "SDL_Init");
-		return 1;
-	}
+	init_lib();
 
-	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
-	{
-		log_sdl_error(std::cout, "IMG_Init");
-		return 1;
-	}
-
-	if (TTF_Init() != 0)
-	{
-		log_sdl_error(std::cout, "TTF_Init");
-		return 1;
-	}
-
-	Window window("Epic Game", 1920, 1200);
+	Window window("Epic Game", 1920, 1080);
 	if (window.init() != 0)
 		return 1;
 
-	SDL_Texture* player_texture = window.load_texture("img/player.png");
-	SDL_Texture* crosshair_texture = window.load_texture("img/crosshair.png");
+	SDL_Texture* player_texture = window.load_texture("assets/img/player.png");
+	SDL_Texture* crosshair_texture = window.load_texture("assets/img/crosshair.png");
 	Game game(window, player_texture, crosshair_texture);
 	game.player.setX(200);
 	game.player.setY(200);
 
-	SDL_Event e;
-	bool quit = false;
-	const Uint8* keyboard_state;
-	int space_count = 0;
+	Uint32 minimum_fps_delta_time = (1000/6); // minimum 6 fps, if the computer is slower than this: slow down.
+	Uint32 last_game_step = SDL_GetTicks(); // initial value
+	Uint32 now, delta_time;
 
-	while (!quit)
+	while (game.running())
 	{
-		while (SDL_PollEvent(&e))
-			if (e.type == SDL_QUIT)
-				quit = true;
+		game.handle_events();
+		now = SDL_GetTicks();
 
-		keyboard_state = SDL_GetKeyboardState(nullptr);
-		if (keyboard_state[SDL_SCANCODE_W] || keyboard_state[SDL_SCANCODE_A] || keyboard_state[SDL_SCANCODE_S] || keyboard_state[SDL_SCANCODE_D])
+		// Check so we don't render for no reason, avoid having a 0 delta time
+		if(last_game_step < now)
 		{
-			if (keyboard_state[SDL_SCANCODE_W]) game.player.decY(6);
-			if (keyboard_state[SDL_SCANCODE_A]) game.player.decX(6);
-			if (keyboard_state[SDL_SCANCODE_S]) game.player.incY(6);
-			if (keyboard_state[SDL_SCANCODE_D]) game.player.incX(6);
-
-			// handle animation if player is moving
-			if (space_count == 20)
-			{
-				game.player.set_next_animation_frame();
-				space_count = 0;
-			}
-			else space_count ++;
+			delta_time = (now - last_game_step > minimum_fps_delta_time) ? minimum_fps_delta_time : now - last_game_step;
+			game.update(delta_time);
+			game.render();
 		}
-		else
-		{
-			game.player.reset_animation_frame();
-			space_count = 0;
-		}
-		game.display_frame();
+		else SDL_Delay(1); // slow down a bit to not burn the cpu
+		last_game_step = now;
 	}
-
+	
+	SDL_DestroyTexture(player_texture);
+	SDL_DestroyTexture(crosshair_texture);
 	return 0;
 }
