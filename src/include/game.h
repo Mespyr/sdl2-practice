@@ -7,7 +7,7 @@
 class Game
 {
 public:
-	Game(Window& window, SDL_Texture* player_texture, SDL_Texture* crosshair_texture);
+	Game(Window& window, SDL_Texture* player_texture, SDL_Texture* arm_texture, SDL_Texture* crosshair_texture);
 	void handle_events();
 	void update(Uint32 delta_time);
 	void render();

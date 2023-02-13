@@ -11,9 +11,10 @@ int main()
 		return 1;
 
 	SDL_Texture* player_texture = window.load_texture("assets/img/player.png");
+	SDL_Texture* arm_texture = window.load_texture("assets/img/arm.png");
 	SDL_Texture* crosshair_texture = window.load_texture("assets/img/crosshair.png");
-	Game game(window, player_texture, crosshair_texture);
-	game.player.setX(500);
+	Game game(window, player_texture, arm_texture, crosshair_texture);
+	game.player.setX(400);
 	game.player.setY(200);
 
 	Uint32 minimum_fps_delta_time = (1000/6); // minimum 6 fps, if the computer is slower than this: slow down.

@@ -54,7 +54,7 @@ void Window::render(Object& obj, double scale)
 	pos.w = obj.current_frame.w * scale;
 	pos.h = obj.current_frame.h * scale;
 
-	SDL_RenderCopy(renderer, obj.texture, &size, &pos);
+	SDL_RenderCopyEx(renderer, obj.texture, &size, &pos, obj.angle, nullptr, SDL_FLIP_NONE);
 }
 
 void Window::display()
