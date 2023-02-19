@@ -1,9 +1,9 @@
 # SDL2
-SDL_LIB=-L/usr/local/lib -lSDL2 -Wl,-rpath=/usr/local/lib -lSDL2_image -lSDL2_ttf
+SDL_LIB=-L/usr/lib -lSDL2 -lSDL2_image -lSDL2_ttf
 SDL_INCLUDE=-I/usr/local/include
 
 CPP=g++
-CPPFLAGS=-Wall -Wextra -pedantic $(SDL_INCLUDE)
+CPPFLAGS=-Wall -Wextra -pedantic $(SDL_INCLUDE) -D_REENTRANT
 LDFLAGS=$(SDL_LIB)
 
 SRC_DIR=src
@@ -17,7 +17,7 @@ BIN=epic_game
 all: $(BIN)
 
 $(BIN): $(OBJ_FILES) $(OBJ_DIR)
-	$(CPP) $(CPPFLAGS) $(OBJ_FILES) -o $@ $(LDFLAGS)
+	$(CPP) $(OBJ_FILES) -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(OBJ_DIR)
 	$(CPP) $(CPPFLAGS) -c $< -o $@

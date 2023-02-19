@@ -2,15 +2,20 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "vec2.h"
 
 class Object
 {
 public:
-	Object(int x, int y, SDL_Texture* texture) 
-		: x(x), y(y), texture(texture)
+	Object(float x, float y, SDL_Texture* texture) 
+		: position(x, y), texture(texture)
 	{}
 
-	int x, y;
+	Object(Vec2<float> position, SDL_Texture* texture) 
+		: position(position), texture(texture)
+	{}
+
+	Vec2<float> position;
 	SDL_Texture* texture;
 	SDL_Rect current_frame;
 	double angle = 0;

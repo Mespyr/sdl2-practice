@@ -19,7 +19,7 @@ public:
 
 	SDL_Texture* load_texture(const std::string& file_path);
 	void clear();
-	void render(Object& obj, double scale);
+	void render(Object& obj, double scale = 1);
 	void display();
 
 private:

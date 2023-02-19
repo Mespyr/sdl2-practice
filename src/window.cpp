@@ -9,7 +9,7 @@ Window::~Window()
 
 int Window::init()
 {
-	window = SDL_CreateWindow(window_name.c_str(), 100, 100, window_width, window_height, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow(window_name.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 	{
 		log_sdl_error(std::cout, "SDL_CreateWindow");
@@ -42,19 +42,13 @@ void Window::clear()
 
 void Window::render(Object& obj, double scale)
 {
-	SDL_Rect size;
-	size.x = obj.current_frame.x;
-	size.y = obj.current_frame.y;
-	size.w = obj.current_frame.w;
-	size.h = obj.current_frame.h;
-	
 	SDL_Rect pos;
-	pos.x = obj.x - size.w;
-	pos.y = obj.y - size.h;
+	pos.x = obj.position.x - obj.current_frame.w;
+	pos.y = obj.position.y - obj.current_frame.h;
 	pos.w = obj.current_frame.w * scale;
 	pos.h = obj.current_frame.h * scale;
 
-	SDL_RenderCopyEx(renderer, obj.texture, &size, &pos, obj.angle, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderer, obj.texture, &obj.current_frame, &pos, obj.angle, nullptr, SDL_FLIP_NONE);
 }
 
 void Window::display()

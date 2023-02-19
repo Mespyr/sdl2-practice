@@ -5,8 +5,7 @@
 int main()
 {
 	init_lib();
-
-	Window window("Epic Game", 1920, 1080);
+	Window window("Epic Game", 1400, 1000);
 	if (window.init() != 0)
 		return 1;
 
@@ -17,9 +16,8 @@ int main()
 	game.player.setX(400);
 	game.player.setY(200);
 
-	Uint32 minimum_fps_delta_time = (1000/6); // minimum 6 fps, if the computer is slower than this: slow down.
-	Uint32 last_game_step = SDL_GetTicks(); // initial value
-	Uint32 now, delta_time;
+	Uint32 now, last_game_step = SDL_GetTicks();
+	float delta_time;
 
 	while (game.running())
 	{
@@ -29,7 +27,7 @@ int main()
 		// Check so we don't render for no reason, avoid having a 0 delta time
 		if(last_game_step < now)
 		{
-			delta_time = (now - last_game_step > minimum_fps_delta_time) ? minimum_fps_delta_time : now - last_game_step;
+			delta_time = (now - last_game_step) / 1000.0f;
 			game.update(delta_time);
 			game.render();
 		}
@@ -39,5 +37,6 @@ int main()
 	
 	SDL_DestroyTexture(player_texture);
 	SDL_DestroyTexture(crosshair_texture);
+	SDL_DestroyTexture(arm_texture);
 	return 0;
 }
