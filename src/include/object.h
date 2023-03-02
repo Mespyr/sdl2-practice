@@ -4,8 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include "vec2.h"
 
-class Object
-{
+class Object {
 public:
 	Object(float x, float y, SDL_Texture* texture) 
 		: position(x, y), texture(texture)

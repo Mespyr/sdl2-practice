@@ -8,8 +8,7 @@
 #include "util.h"
 #include "object.h"
 
-class Window
-{
+class Window {
 public:
 	Window(const std::string &name, int width, int height) :
 		window_name(name), window_width(width), window_height(height)

@@ -6,8 +6,7 @@
 #include "vec2.h"
 #include <algorithm>
 
-class Game
-{
+class Game {
 public:
 	Game(Window& window, SDL_Texture* player_texture, SDL_Texture* arm_texture, SDL_Texture* crosshair_texture);
 	void handle_events();
@@ -23,7 +22,7 @@ private:
 	
 	float player_animation_timer = 0;
 	SDL_Event e;
-	const Uint8* keyboard_state;
+	const Uint8* kbd_state;
 	bool quit = false;
 
 	// constants

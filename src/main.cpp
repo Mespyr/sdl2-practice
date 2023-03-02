@@ -2,8 +2,7 @@
 #include "include/window.h"
 #include "include/game.h"
 
-int main()
-{
+int main() {
 	init_lib();
 	Window window("Epic Game", 1400, 1000);
 	if (window.init() != 0)
@@ -19,14 +18,12 @@ int main()
 	Uint32 now, last_game_step = SDL_GetTicks();
 	float delta_time;
 
-	while (game.running())
-	{
+	while (game.running()) {
 		game.handle_events();
 		now = SDL_GetTicks();
 
 		// Check so we don't render for no reason, avoid having a 0 delta time
-		if(last_game_step < now)
-		{
+		if(last_game_step < now) {
 			delta_time = (now - last_game_step) / 1000.0f;
 			game.update(delta_time);
 			game.render();

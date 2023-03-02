@@ -1,8 +1,7 @@
 #pragma once
 
 template <typename T>
-class Vec2
-{
+class Vec2 {
 public:
 	Vec2() {}
 	Vec2(T x, T y)
