@@ -1,4 +1,5 @@
 #include "include/window.h"
+#include <SDL2/SDL_stdinc.h>
 
 Window::~Window() {
 	SDL_DestroyWindow(window);

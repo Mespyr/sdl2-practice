@@ -8,10 +8,11 @@ int main() {
 	if (window.init() != 0)
 		return 1;
 
-	SDL_Texture* player_texture = window.load_texture("assets/img/player.png");
-	SDL_Texture* arm_texture = window.load_texture("assets/img/arm.png");
-	SDL_Texture* crosshair_texture = window.load_texture("assets/img/crosshair.png");
-	Game game(window, player_texture, arm_texture, crosshair_texture);
+	SDL_Texture* player_texture = window.load_texture("assets/player.png");
+	SDL_Texture* arm_texture = window.load_texture("assets/arm.png");
+	SDL_Texture* crosshair_texture = window.load_texture("assets/crosshair.png");
+	SDL_Texture* cobblestone_texture = window.load_texture("assets/cobblestone.png");
+	Game game(window, player_texture, arm_texture, crosshair_texture, cobblestone_texture);
 	game.player.setX(400);
 	game.player.setY(200);
 

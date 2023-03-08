@@ -1,10 +1,12 @@
 #include "include/game.h"
 
-Game::Game(Window& window, SDL_Texture* player_texture, SDL_Texture* arm_texture, SDL_Texture* crosshair_texture)
-	: window(window), player(player_texture, arm_texture), crosshair_object(0, 0, crosshair_texture) {
+Game::Game(Window& window, SDL_Texture* player_texture, SDL_Texture* arm_texture, SDL_Texture* crosshair_texture, SDL_Texture* cobblestone_texture)
+	: window(window), player(player_texture, arm_texture), crosshair_object(0, 0, crosshair_texture), cobblestone_obj(0, 0, cobblestone_texture) {
 	SDL_ShowCursor(SDL_FALSE);
 	crosshair_object.current_frame.w = 16;
 	crosshair_object.current_frame.h = 16;
+	cobblestone_obj.current_frame.w = 16;
+	cobblestone_obj.current_frame.h = 16;
 }
 
 void Game::handle_events() {
@@ -69,8 +71,19 @@ void Game::update(float delta_time) {
 
 void Game::render() {
 	window.clear();
-	window.render(player.player_object, 4);
-	window.render(player.arm_object, 4);
+	window.render(player.player_object, 3);
+	window.render(player.arm_object, 3);
+
+	for (int pos_y = 0; pos_y < MAP_HEIGHT; pos_y++) {
+		for (int pos_x = 0; pos_x < MAP_WIDTH; pos_x++) {
+			if (map[(pos_y * MAP_WIDTH) + pos_x] == 1) {
+				cobblestone_obj.position.x = pos_x * 16 * 3;
+				cobblestone_obj.position.y = pos_y * 16 * 3;
+				window.render(cobblestone_obj, 3);
+			}
+		}
+	}
+
 	window.render(crosshair_object, 3);
 	window.display();
 }
